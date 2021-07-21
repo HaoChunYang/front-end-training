@@ -1,0 +1,30 @@
+<div id="app">hello</div>
+<script type="module">
+  import { V1 } from "./FishTemplate/index.js";
+  import NewsList from "./FishTemplate/components/NewsList.js";
+
+  function getNewsList() {
+    return fetch("https://api.apiopen.top/getWangYiNews", {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        page: 1,
+        count: 20,
+      }),
+    }).then((response) => response.json());
+  }
+
+  let newslist = await getNewsList();
+  newslist = newslist.result;
+  console.log(newslist);
+
+  //initial FishTemplate
+  let element = document.getElementById('app')
+  const v1 = new V1().mounted(element);
+  v1.render(NewsList, { newslist });
+
+
+</script>
