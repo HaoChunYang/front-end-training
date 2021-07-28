@@ -6,11 +6,16 @@
 	</head>
 	<body>
 		<h2>Monaco Editor Sample</h2>
-    <button onclick="toRun()">Run</button>
-		<div id="container" style="width: 800px; height: 600px; border: 1px solid grey"></div>
+    <button id="runner" onclick="toRun()">Run</button>
+    <div>
+      <div id="container" style="width: 50%; height: 600px; border: 1px solid grey;display: inline-block;"></div>
+      <div style="width: 49%; height: 600px; border: 1px solid burlywood; display: inline-block;"></div>
+    </div>
 
 		<!-- OR ANY OTHER AMD LOADER HERE INSTEAD OF loader.js -->
 		<script src="./node_modules/monaco-editor/min/vs/loader.js"></script>
+    <script src="./dist/bundle.js"></script>
+
 		<script>
 			require.config({ paths: { vs: './node_modules/monaco-editor/min/vs' } });
       var editor
@@ -24,7 +29,21 @@
       function toRun () {
         // const editor = document.getElementById('container')
         console.log('run the code', editor.getValue())
+        // const filePath = require('path').join(__dirname, 'editorFiles/tmp.js')
+        // require('fs').writeFile(filePath, editor.getValue(), err => {
+        //   console.log(err)
+        // })
       }
 		</script>
+    <script type="module">
+      export default function toRun () {
+        // const editor = document.getElementById('container')
+        console.log('run the code', editor.getValue())
+        const filePath = require('path').join(__dirname, 'editorFiles/tmp.js')
+        require('fs').writeFile(filePath, editor.getValue(), err => {
+          console.log(err)
+        })
+      }
+    </script>
 	</body>
 </html>
