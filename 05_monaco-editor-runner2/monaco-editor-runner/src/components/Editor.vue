@@ -28,6 +28,10 @@ export default {
   methods: {
     toRun () {
       console.log(this.editor.getValue())
+      const filePath = require('path').join(__dirname, 'editorFiles/tmp.js')
+      require('fs').writeFile(filePath, this.editor.getValue(), err => {
+        console.log(err)
+      })
     }
   }
 
